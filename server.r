@@ -53,11 +53,23 @@ server <- (function(input, output) {
     annotated_text <-
       udpipe_annotate(model, x = dataset())
     annotated_df <- as.data.frame(annotated_text)
+    write.csv(annotated_df,'annotated_doc.csv')
     return(annotated_df)
   })
   
+  #file for download
+  output$download_df <- downloadHandler(
+    filename = function(){"annotated_doc.csv"}, 
+    content = function(fname){
+      write.csv(subset(annotated_df(), select=-c(sentence)), fname)
+    }
+  )
+  
+  #select top 100 rows to display
   output$annotated_table <- reactive({
-    return (renderTable(annotated_df))
+    display_df <- subset(annotated_df(), select=-c(sentence))
+    display_top_100 <- head(display_df, 100)
+    return (renderTable(display_top_100))
   })
   
   cooccurance_df <- reactive({

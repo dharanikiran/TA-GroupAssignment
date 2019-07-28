@@ -89,7 +89,11 @@ ui <- (fluidPage(
           )
         ),
         
-        tabPanel("Annotated Document", tableOutput("annotated_table")),
+        tabPanel(
+          "Annotated Document", tableOutput("annotated_table"),
+          h2("Download Data"),
+          downloadButton('download_df', 'Download Annotated document')
+          ),
         
         tabPanel(
           "Word Cloud",
