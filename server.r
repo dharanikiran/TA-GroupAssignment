@@ -70,10 +70,8 @@ shinyServer(function(input, output) {
   )
   
   #select top 100 rows to display
-  output$annotated_table <- reactive({
-    display_df <- subset(annotated_df(), select = -c(sentence))
-    display_top_100 <- head(display_df, 100)
-    return (renderDataTable(datatable(display_top_100)))
+  output$annotated_table <- renderTable({  
+    head(annotated_df(), 100)
   })
   
   cooccurance_df <- reactive({
