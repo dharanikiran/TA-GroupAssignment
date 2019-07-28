@@ -91,7 +91,7 @@ shinyUI(fluidPage(
         tabPanel(
           "Annotated Document",
           h2("Top 100 rows from annotated document"),
-          tableOutput("annotated_table"),
+          #tableOutput("annotated_table"),
           h2("Download Data"),
           downloadButton('download_df', 'Download Annotated document')
         ),
