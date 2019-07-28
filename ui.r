@@ -63,25 +63,18 @@ ui <- (fluidPage(
         type = "tabs",
         
         tabPanel(
-          "About the App",
+          "Overview",
           h3(p("How to use this App")),
           
           p(
-            "To use this app you need a document corpus in txt file format. Document needs to be plain text with multiple lines. To do basic Text Analysis in your text corpus, click on Browse in left-sidebar panel and upload the txt file. Once the file is uploaded it will do the computations in
-            back-end with default inputs and accordingly results will be displayed in various tabs.",
+            "To use this app you need a document corpus in text file format. Document needs to be plain text with multiple lines",
             align = "justify"
-          ),
-          p(
-            "If you wish to change the input, modify the input in left side-bar panel and click on Apply changes. Accordingly results in other tab will be refreshed
-            ",
-            align = "Justify"
           ),
           h4("Note"),
           p(
-            "You might observe no change in the outputs after clicking 'Apply Changes' for big files. Wait for few seconds. As soon as all the computations are over in back-end results will be refreshed",
-            align = "justify"
+            "If you wish to change the input file, just uplaod the file again and wait for few seconds for processing",
+            align = "Justify"
           ),
-          br(),
           br(),
           p(
             "App created by - Anmol More (11915043), Dharani Kiran Kavuri (11915033) & Shubhendu Vimal (11915067)",
@@ -90,10 +83,12 @@ ui <- (fluidPage(
         ),
         
         tabPanel(
-          "Annotated Document", tableOutput("annotated_table"),
+          "Annotated Document",
+          h2("Top 100 rows from annotated document"),
+          #tableOutput("annotated_table"),
           h2("Download Data"),
           downloadButton('download_df', 'Download Annotated document')
-          ),
+        ),
         
         tabPanel(
           "Word Cloud",

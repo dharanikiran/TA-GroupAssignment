@@ -16,8 +16,10 @@ server <- (function(input, output) {
       doc = readLines(input$text_file$datapath)
       
       temp <- tolower(doc) #convert to lowercase
-      temp <- stringr::str_replace_all(temp,"[^a-zA-Z\\s]", " ") #remove all non alphabets
-      temp <- stringr::str_replace_all(temp,"[\\s]+", " ")  #strip extra spaces
+      temp <-
+        stringr::str_replace_all(temp, "[^a-zA-Z\\s]", " ") #remove all non alphabets
+      temp <-
+        stringr::str_replace_all(temp, "[\\s]+", " ")  #strip extra spaces
       return(temp)
     }
   })
@@ -46,28 +48,30 @@ server <- (function(input, output) {
   })
   
   #cols in annotated df :
-  #"doc_id", "paragraph_id", "sentence_id", "sentence", "token_id", "token", "lemma", "upos"         
-  #"xpos", "feats", "head_token_id", "dep_rel", "deps", "misc"   
+  #"doc_id", "paragraph_id", "sentence_id", "sentence", "token_id", "token", "lemma", "upos"
+  #"xpos", "feats", "head_token_id", "dep_rel", "deps", "misc"
   annotated_df <- reactive({
     model = udpipe_load_model("english-ewt-ud-2.4-190531.udpipe")
     annotated_text <-
       udpipe_annotate(model, x = dataset())
     annotated_df <- as.data.frame(annotated_text)
-    write.csv(annotated_df,'annotated_doc.csv')
+    write.csv(annotated_df, 'annotated_doc.csv')
     return(annotated_df)
   })
   
   #file for download
   output$download_df <- downloadHandler(
-    filename = function(){"annotated_doc.csv"}, 
-    content = function(fname){
-      write.csv(subset(annotated_df(), select=-c(sentence)), fname)
+    filename = function() {
+      "annotated_doc.csv"
+    },
+    content = function(fname) {
+      write.csv(subset(annotated_df(), select = -c(sentence)), fname)
     }
   )
   
   #select top 100 rows to display
   output$annotated_table <- reactive({
-    display_df <- subset(annotated_df(), select=-c(sentence))
+    display_df <- subset(annotated_df(), select = -c(sentence))
     display_top_100 <- head(display_df, 100)
     return (renderTable(display_top_100))
   })
@@ -89,14 +93,13 @@ server <- (function(input, output) {
     
     ggraph(wordnetwork, layout = "fr") +
       
-      geom_edge_link(aes(width = cooc, edge_alpha = cooc), edge_colour = "green") +
-      geom_node_text(aes(label = name), col = "red", size = 4) +
+      geom_edge_link(aes(width = cooc, edge_alpha = cooc), edge_colour = "blue") +
+      geom_node_text(aes(label = name), col = "black", size = 4) +
       
       theme_graph(base_family = "Arial Narrow") +
-      theme(legend.position = "none") +
-      
-      labs(title = "Co-occurrences within 3 words distance",
-           subtitle = paste(pos_tags(), collapse = ","))
+    
+    labs(title = "Top 30 Cooccurrence graph",
+         subtitle = paste(pos_tags(), collapse = ","))
   })
   
   #filter annotated doc by Noun
@@ -108,7 +111,8 @@ server <- (function(input, output) {
   
   #get top 100 nouns plot
   output$word_cloud_noun <- renderPlot({
-    top_words <- head(nouns_by_freq(), 200)  #take 200 words, limit same in UI
+    top_words <-
+      head(nouns_by_freq(), 200)  #take 200 words, limit same in UI
     wordcloud(
       words = top_words$key,
       freq = top_words$freq,
@@ -126,7 +130,8 @@ server <- (function(input, output) {
   
   #get top 100 verbs plot
   output$word_cloud_verb <- renderPlot({
-    top_words <- head(verbs_by_freq(), 200) #take 200 words, limit same in UI
+    top_words <-
+      head(verbs_by_freq(), 200) #take 200 words, limit same in UI
     wordcloud(
       words = top_words$key,
       freq = top_words$freq,
