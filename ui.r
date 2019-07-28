@@ -5,8 +5,13 @@
 
 library(shiny)
 library(shinythemes)
+library(wordcloud)
+library(udpipe)
+library(ggraph)
+library(igraph)
+library(stringr)
 
-ui <- (fluidPage(
+shinyUI(fluidPage(
   # Application title
   theme = shinytheme("united"),
   titlePanel(title = div(
@@ -93,7 +98,7 @@ ui <- (fluidPage(
         tabPanel(
           "Word Cloud",
           h2("Word Cloud for Nouns in Corpus"),
-          imageOutput("word_cloud_noun", width = "100%"),
+          plotOutput("word_cloud_noun", width = "100%"),
           
           h2("Word Cloud for Verbs in Corpus"),
           plotOutput("word_cloud_verb", width = "100%")

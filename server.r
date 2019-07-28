@@ -5,7 +5,7 @@
 
 #Ref : https://bnosac.github.io/udpipe/docs/doc7.html
 
-server <- (function(input, output) {
+shinyServer(function(input, output) {
   options(shiny.maxRequestSize = 30 * 1024 ^ 2)
   
   dataset <- reactive({
