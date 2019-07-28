@@ -10,6 +10,7 @@ library(udpipe)
 library(ggraph)
 library(igraph)
 library(stringr)
+library(tidyverse)
 
 shinyUI(fluidPage(
   # Application title
@@ -77,7 +78,7 @@ shinyUI(fluidPage(
           ),
           h4("Note"),
           p(
-            "If you wish to change the input file, just uplaod the file again and wait for few seconds for processing",
+            "If you wish to change the input file, just upload the file again and wait for few seconds for processing",
             align = "Justify"
           ),
           br(),
@@ -90,7 +91,7 @@ shinyUI(fluidPage(
         tabPanel(
           "Annotated Document",
           h2("Top 100 rows from annotated document"),
-          #tableOutput("annotated_table"),
+          tableOutput("annotated_table"),
           h2("Download Data"),
           downloadButton('download_df', 'Download Annotated document')
         ),
