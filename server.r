@@ -73,7 +73,7 @@ shinyServer(function(input, output) {
   output$annotated_table <- reactive({
     display_df <- subset(annotated_df(), select = -c(sentence))
     display_top_100 <- head(display_df, 100)
-    return (renderTable(display_top_100))
+    return (renderDataTable(datatable(display_top_100)))
   })
   
   cooccurance_df <- reactive({
@@ -104,7 +104,7 @@ shinyServer(function(input, output) {
   
   #filter annotated doc by Noun
   nouns_by_freq <- reactive({
-    noun_doc = subset(annotated_df(), upos = 'NOUN')
+    noun_doc = subset(annotated_df(), upos == 'NOUN')
     nouns_by_freq = txt_freq(noun_doc$lemma)   #contains key, freq, freq_pct sorted by freq
     return(nouns_by_freq)
   })
@@ -123,7 +123,7 @@ shinyServer(function(input, output) {
   
   #filter annotated doc by verb
   verbs_by_freq <- reactive({
-    verb_doc = subset(annotated_df(),  upos = 'VERB')
+    verb_doc = subset(annotated_df(),  upos == 'VERB')
     verbs_by_freq = txt_freq(verb_doc$lemma)  #contains key, freq, freq_pct sorted by freq
     return(verbs_by_freq)
   })
