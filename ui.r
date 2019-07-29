@@ -10,6 +10,7 @@ library(udpipe)
 library(ggraph)
 library(igraph)
 library(stringr)
+library(tidyverse)
 
 shinyUI(fluidPage(
   # Application title
@@ -77,7 +78,7 @@ shinyUI(fluidPage(
           ),
           h4("Note"),
           p(
-            "If you wish to change the input file, just uplaod the file again and wait for few seconds for processing",
+            "If you wish to change the input file, just upload the file again and wait for few seconds for processing",
             align = "Justify"
           ),
           br(),
